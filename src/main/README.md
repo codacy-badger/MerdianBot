@@ -1,2 +1,4 @@
-#Sources and resources 
+# Sources and resources 
+java - for developers 
+resources - see README.md 
 
