@@ -1,3 +1,2 @@
 # Bot core
-__Merdian.java__ -- main bot commands
-Other classes soon.
+Here main bot files and main bot commands. In package io.merdedspade.commands other commands.
