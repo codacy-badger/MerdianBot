@@ -65,7 +65,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>io.merdedspade.Main</mainClass>
+                            <mainClass>io.merdedspade.Launch</mainClass>
                             <packageName>io.merdedspade</packageName>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>

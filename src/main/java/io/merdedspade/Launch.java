@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import net.dv8tion.jda.*;
 import net.dv8tion.jda.core.*;
 
-public class Main {
-    //TODO: make normal debug
-    protected static final Logger logger = LogManager.getLogger("MainLogger");
+public class Launch {
+
+    protected static final Logger logger = LogManager.getLogger("LaunchLogger");
 
     public static Config config = new Config();
     public static Info inf = new Info();
