@@ -48,7 +48,7 @@ public class Merdian extends ListenerAdapter {
                     .setGame(Game.playing("Merdian | dev"))
                     .buildBlocking(); // Blocking guarantees that JDA will be completely loaded.
         } catch (LoginException e) {
-            //If anything auth error.
+            //If auth error.
             e.printStackTrace();
             el("Wrong token!");
         } catch (InterruptedException e) {
@@ -90,27 +90,30 @@ public class Merdian extends ListenerAdapter {
             else {
                 name = member.getEffectiveName();
             }
-
-            logger.info("(%s)[%s]<%s>: %s\n", guild.getName(), textChannel.getName(), name, msg);
+            //TODO: FIXIT
+            logger.info("New message on server! " + guild.getName() + " " + textChannel.getName() + " " + name + " " + msg);
         } else if (event.isFromType(ChannelType.PRIVATE)) //If this message was sent to a PrivateChannel
         {
 
             PrivateChannel privateChannel = event.getPrivateChannel();
 
-            logger.info("[DM]<%s>: %s\n", author.getName(), msg);
+            logger.info("New message on DM ", author.getName() + " " + msg);
         } else if (event.isFromType(ChannelType.GROUP))
         {
 
             Group group = event.getGroup();
             String groupName = group.getName() != null ? group.getName() : "";
 
-            System.out.printf("[GROUP: %s]<%s>: %s\n", groupName, author.getName(), msg);
+            System.out.printf("New message in group " + groupName + " " + author.getName() + " " + msg);
         }
 
 
         if (msg.equals(config.prefix + "ping")) {
 
             channel.sendMessage("Pong! Bot working!").queue();
+        } else if (msg.equals(config.prefix + "shutdown")) {
+            channel.sendMessage("Bye! ").queue();
+            System.exit(0);
         }
     }
 }
