@@ -4,6 +4,8 @@ import java.util.Properties;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 public class Config {
+    public static String token;
+    public static String prefix;
     protected static final Logger logger = LogManager.getLogger("ConfigLogger");
     public static void il(String msg){
         logger.info(msg);
@@ -22,8 +24,8 @@ public class Config {
             fis = new FileInputStream("config.properties"); //src/main/resources/config.properties
             property.load(fis);
 
-            String token = property.getProperty("Token");
-            String prefix = property.getProperty("Prefix");
+            token = property.getProperty("Token");
+            prefix = property.getProperty("Prefix");
             il("Prefix: " + prefix);
 
         } catch (IOException e) {
