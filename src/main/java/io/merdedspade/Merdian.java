@@ -40,7 +40,7 @@ public class Merdian extends ListenerAdapter {
         logger.warn(msg);
     }
 
-    public static void bot(String[] args) {
+    public static void bot() {
         try {
             JDA jda = new JDABuilder(AccountType.BOT)
                     .setToken(config.token)           //Bot token.
@@ -59,11 +59,11 @@ public class Merdian extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        //These are provided with every event in JDA
-        JDA jda = event.getJDA();                       //JDA, the core of the api.
+
+        JDA jda = event.getJDA();                       //JDA
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
 
-        //Event specific information
+
         User author = event.getAuthor();                //The user that sent the message
         Message message = event.getMessage();           //The message that was received.
         MessageChannel channel = event.getChannel();    //This is the MessageChannel that the message was sent to.
@@ -85,41 +85,30 @@ public class Merdian extends ListenerAdapter {
 
             String name;
             if (message.isWebhookMessage()) {
-                name = author.getName();                //If this is a Webhook message, then there is no Member associated
-            }                                           // with the User, thus we default to the author for name.
+                name = author.getName();
+            }
             else {
-                name = member.getEffectiveName();       //This will either use the Member's nickname if they have one,
-            }                                           // otherwise it will default to their username. (User#getName())
+                name = member.getEffectiveName();
+            }
 
             logger.info("(%s)[%s]<%s>: %s\n", guild.getName(), textChannel.getName(), name, msg);
         } else if (event.isFromType(ChannelType.PRIVATE)) //If this message was sent to a PrivateChannel
         {
-            //The message was sent in a PrivateChannel.
-            //In this example we don't directly use the privateChannel, however, be sure, there are uses for it!
+
             PrivateChannel privateChannel = event.getPrivateChannel();
 
             logger.info("[DM]<%s>: %s\n", author.getName(), msg);
-        } else if (event.isFromType(ChannelType.GROUP))   //If this message was sent to a Group. This is CLIENT only!
+        } else if (event.isFromType(ChannelType.GROUP))
         {
-            //The message was sent in a Group. It should be noted that Groups are CLIENT only.
+
             Group group = event.getGroup();
-            String groupName = group.getName() != null ? group.getName() : "";  //A group name can be null due to it being unnamed.
+            String groupName = group.getName() != null ? group.getName() : "";
 
             System.out.printf("[GROUP: %s]<%s>: %s\n", groupName, author.getName(), msg);
         }
 
 
-        //Now that you have a grasp on the things that you might see in an event, specifically MessageReceivedEvent,
-        // we will look at sending / responding to messages!
-        //This will be an extremely simplified example of command processing.
-
-        //Remember, in all of these .equals checks it is actually comparing
-        // message.getContentDisplay().equals, which is comparing a string to a string.
-        // If you did message.equals() it will fail because you would be comparing a Message to a String!
         if (msg.equals(config.prefix + "ping")) {
-            //This will send a message, "pong!", by constructing a RestAction and "queueing" the action with the Requester.
-            // By calling queue(), we send the Request to the Requester which will send it to discord. Using queue() or any
-            // of its different forms will handle ratelimiting for you automatically!
 
             channel.sendMessage("Pong! Bot working!").queue();
         }

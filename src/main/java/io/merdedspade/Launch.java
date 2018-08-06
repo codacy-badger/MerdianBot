@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 
 
 public class Launch {
-
+    protected static Merdian bot = new Merdian();
     protected static final Logger logger = LogManager.getLogger("LaunchLogger");
 
 
@@ -28,9 +28,10 @@ public class Launch {
         if (dev.dev_status.equals("alpha") || dev.dev_status.equals("pre-alpha") || dev.dev_status.equals("beta") || dev.dev_status.equals("canary")) {
             wl("THIS VERSION IN " + dev.dev_status.toUpperCase() + ". CAN BE UNSTABLE.");
         }
-
-
         Config.start();
+        il("Now starting bot!");
+        bot.bot();
+
     }
 
 
