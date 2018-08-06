@@ -22,6 +22,8 @@ import java.util.Random;
 /*
 Bot core here. Plz read README.md
  */
+
+//TODO: Add sharding.
 public class Merdian extends ListenerAdapter {
     protected static final Logger logger = LogManager.getLogger("BotLogger");
     static Config config = new Config();
@@ -86,11 +88,10 @@ public class Merdian extends ListenerAdapter {
             String name;
             if (message.isWebhookMessage()) {
                 name = author.getName();
-            }
-            else {
+            } else {
                 name = member.getEffectiveName();
             }
-            //TODO: FIXIT
+
             logger.info("New message on server! " + guild.getName() + " " + textChannel.getName() + " " + name + " " + msg);
         } else if (event.isFromType(ChannelType.PRIVATE)) //If this message was sent to a PrivateChannel
         {
@@ -98,8 +99,7 @@ public class Merdian extends ListenerAdapter {
             PrivateChannel privateChannel = event.getPrivateChannel();
 
             logger.info("New message on DM ", author.getName() + " " + msg);
-        } else if (event.isFromType(ChannelType.GROUP))
-        {
+        } else if (event.isFromType(ChannelType.GROUP)) {
 
             Group group = event.getGroup();
             String groupName = group.getName() != null ? group.getName() : "";
