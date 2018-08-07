@@ -25,23 +25,10 @@ Bot core here. Plz read README.md
 
 //TODO: Add sharding.
 public class Merdian extends ListenerAdapter {
-    final static Logger logger = LoggerFactory.getLogger(Merdian.class);
+    final static Logger l = LoggerFactory.getLogger(Merdian.class);
 
     static Config config = new Config();
 
-    //Im lazy -_-
-    public static void il(String msg) {
-        logger.info(msg);
-    }
-
-    public static void el(String msg) {
-        logger.error(msg);
-    }
-
-
-    public static void wl(String msg) {
-        logger.warn(msg);
-    }
 
     public static void bot() {
         try {
@@ -53,10 +40,10 @@ public class Merdian extends ListenerAdapter {
         } catch (LoginException e) {
             //If auth error.
             e.printStackTrace();
-            el("Wrong token!");
+            l.error("Wrong token!");
         } catch (InterruptedException e) {
             e.printStackTrace();
-            el("Error. ^");
+            l.error("Error. ^");
         }
     }
 
@@ -93,13 +80,13 @@ public class Merdian extends ListenerAdapter {
                 name = member.getEffectiveName();
             }
 
-            logger.info("New message on server! " + guild.getName() + " " + textChannel.getName() + " " + name + " " + msg);
+            l.info("New message on server! " + guild.getName() + " " + textChannel.getName() + " " + name + " " + msg);
         } else if (event.isFromType(ChannelType.PRIVATE)) //If this message was sent to a PrivateChannel
         {
 
             PrivateChannel privateChannel = event.getPrivateChannel();
 
-            logger.info("New message on DM ", author.getName() + " " + msg);
+            l.info("New message on DM ", author.getName() + " " + msg);
         } else if (event.isFromType(ChannelType.GROUP)) {
 
             Group group = event.getGroup();

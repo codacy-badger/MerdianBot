@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public class Config {
     public static String token;
     public static String prefix;
-    final static Logger logger = LoggerFactory.getLogger(Merdian.class);
+    final static Logger logger = LoggerFactory.getLogger(Config.class);
     public static void il(String msg){
         logger.info(msg);
     }
