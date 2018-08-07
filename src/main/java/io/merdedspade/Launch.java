@@ -1,12 +1,12 @@
 package io.merdedspade;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Launch {
     protected static Merdian bot = new Merdian();
-    protected static final Logger logger = LogManager.getLogger("LaunchLogger");
+    final static Logger logger = LoggerFactory.getLogger(Launch.class);
 
 
     public static Const dev = new Const();

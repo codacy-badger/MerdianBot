@@ -1,12 +1,14 @@
 package io.merdedspade;
 import java.io.*;
 import java.util.Properties;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Config {
     public static String token;
     public static String prefix;
-    protected static final Logger logger = LogManager.getLogger("ConfigLogger");
+    final static Logger logger = LoggerFactory.getLogger(Merdian.class);
     public static void il(String msg){
         logger.info(msg);
     }

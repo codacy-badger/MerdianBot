@@ -11,8 +11,8 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.PermissionException;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 import java.util.List;
@@ -25,7 +25,8 @@ Bot core here. Plz read README.md
 
 //TODO: Add sharding.
 public class Merdian extends ListenerAdapter {
-    protected static final Logger logger = LogManager.getLogger("BotLogger");
+    final static Logger logger = LoggerFactory.getLogger(Merdian.class);
+
     static Config config = new Config();
 
     //Im lazy -_-
