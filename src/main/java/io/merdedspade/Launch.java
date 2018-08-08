@@ -24,7 +24,7 @@ public class Launch {
     }
 
     public static void main(String[] args) {
-        il("Merdian is MerdianBot " + dev.ver + dev.dev_status);
+        il("Merdian is MerdianBot " + dev.ver + " " + dev.dev_status);
         if (dev.dev_status.equals("alpha") || dev.dev_status.equals("pre-alpha") || dev.dev_status.equals("beta") || dev.dev_status.equals("canary")) {
             wl("THIS VERSION IN " + dev.dev_status.toUpperCase() + ". CAN BE UNSTABLE.");
         }
