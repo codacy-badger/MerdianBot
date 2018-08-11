@@ -1,4 +1,4 @@
-package io.merdedspade;
+package io.merdedspade.merdian;
 /*
     INFO FILE FOR MERDIAN.
     VERSIONS AND HERE!

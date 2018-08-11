@@ -1,4 +1,4 @@
-package io.merdedspade;
+package io.merdedspade.merdian;
 import java.io.*;
 import java.util.Properties;
 
