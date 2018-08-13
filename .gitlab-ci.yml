@@ -44,7 +44,7 @@ latest:
   image: gradle:latest
   stage: build
   script:
-    - 'gradle clean install shadowJar'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
     - build
@@ -53,7 +53,7 @@ jdk10:
   image: gradle:jdk10
   stage: build
   script:
-    - 'gradle clean install shadowJar'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
     - build
@@ -63,7 +63,7 @@ jdk8:
   image: gradle:jdk8
   stage: build
   script:
-    - 'gradle clean install shadowJar'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
     - build
