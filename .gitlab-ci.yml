@@ -41,39 +41,32 @@ docker:
     - branches
 
 latest:
-  image: maven:latest
+  image: gradle:latest
   stage: build
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean install shadowJar'
   artifacts:
     paths:
-    - target
+    - build
 
 jdk10:
-  image: maven:3.5.4-jdk-10
-  stage: build
+  image: gradle:jdk10
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean install shadowJar'
   artifacts:
     paths:
-    - target
-    
-jdk9:
-  image: maven:3.5.4-jdk-9
-  stage: build
-  script:
-    - 'mvn clean install -X'
-  artifacts:
-    paths:
-    - target
+    - build
+
+
 jdk8:
-  image: maven:3.5.4-jdk-8
-  stage: build
+  image: gradle:jdk8
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean install shadowJar'
   artifacts:
     paths:
-    - target
+    - build
+
+
  
  
 test:
