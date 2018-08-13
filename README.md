@@ -7,3 +7,6 @@
 [![By](https://img.shields.io/badge/By-MerdedSpade-ff69b4.svg?longCache=true&style=flat-square)](https://github.com/MerdedSpade)
 
 **Not done!** 
+
+## Trello
+Our public Trello [board](https://trello.com/b/1rmmUNX3/) 
