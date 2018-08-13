@@ -14,6 +14,9 @@ version = '0.0.1a-SNAPSHOT'
 
 def jdaVersion = '3.7.1_391'
 
+
+
+/* Im too lazy to create fatJar tak -_-*/
 uploadArchives {
   repositories {
     mavenDeployer {
@@ -24,7 +27,7 @@ uploadArchives {
         addFilter('service') {artifact, file ->
             artifact.name == 'service'
         }
-        pom('api').version = 'mySpecialMavenVersion'
+        pom('api').version = 'latesr'
         }
     }
 }
