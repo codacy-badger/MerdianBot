@@ -39,6 +39,7 @@ docker:
     - build
   only:
     - branches
+  allow_failure: true
 
 latest:
   image: gradle:latest
