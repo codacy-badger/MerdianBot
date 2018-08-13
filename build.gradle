@@ -14,6 +14,21 @@ version = '0.0.1a-SNAPSHOT'
 
 def jdaVersion = '3.7.1_391'
 
+uploadArchives {
+  repositories {
+    mavenDeployer {
+        repository(url: "file://localhost/tmp/noShadowBug/")
+        addFilter('api') {artifact, file ->
+            artifact.name == 'api'
+        }
+        addFilter('service') {artifact, file ->
+            artifact.name == 'service'
+        }
+        pom('api').version = 'mySpecialMavenVersion'
+        }
+    }
+}
+
 mainClassName = 'io.merdedspade.merdian.Launch'
 
 sourceCompatibility = 1.8
