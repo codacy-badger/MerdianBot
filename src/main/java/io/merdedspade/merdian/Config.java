@@ -10,6 +10,7 @@ public class Config {
     public static String owner;
     public static String prefix;
     public static String debug;
+    public static int ownerId;
     public static boolean isDebug;
     final static Logger logger = LoggerFactory.getLogger(Config.class);
     public static void il(String msg){
@@ -33,6 +34,7 @@ public class Config {
             prefix = property.getProperty("Prefix");
             debug = property.getProperty("Debug");
             owner = property.getProperty("BotOwner");
+
             il("Prefix: " + prefix);
             boolConverter();
             il("Debug: " + isDebug);
