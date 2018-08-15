@@ -10,7 +10,6 @@ import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.LoggerFactory;
-import com.jagrosh.jdautilities.*;
 import com.jagrosh.jdautilities.command.*;
 import com.jagrosh.jdautilities.commons.*;
 import com.jagrosh.jdautilities.menu.*;
