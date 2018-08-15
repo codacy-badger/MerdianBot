@@ -1,4 +1,4 @@
-image: alpine:latest
+image: fedora:latest
 
 variables:
   POSTGRES_USER: user
@@ -73,6 +73,7 @@ jdk8:
  
  
 test:
+  allow_failure: true
   services:
     - postgres:latest
   variables:
