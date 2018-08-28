@@ -1,42 +1,36 @@
 package io.merdedspade.merdian.command;
 
-import io.merdedspade.merdian.Const;
+import java.awt.Color;
+
 import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.*;
 import com.jagrosh.jdautilities.command.*;
+import com.jagrosh.jdautilities.command.CommandEvent;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 
-public class InfoCmd extends Command {
-    protected Const info = new Const();
-    static ch.qos.logback.classic.Logger l =
-            (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(InfoCmd.class);
-
-    public InfoCmd() {
-        this.name = "info";
-        this.aliases = new String[]{"status", "i"};
-        this.help = "Send bot info.";
+public class HelpCmd extends Command {
+    public HelpCmd() {
+        this.name = "help";
+        this.aliases = new String[]{"cmds", "commands", "h"};
+        this.help = "Send help.";
     }
- /*   public static String getShardString(JDA.ShardInfo shardInfo) {
-        int shardId = shardInfo.getShardId();
-        int shardCount = shardInfo.getShardTotal();
-        String test = shardInfo.getShardString();
-        return "Your Shard ID: " + shardId + "\n" + "Total shards: " + "\n"+ shardCount + "test: " + test;
-    }*/
+
+    static ch.qos.logback.classic.Logger l =
+            (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(HelpCmd.class);
 
     protected MessageEmbed ebs() {
-
         EmbedBuilder eb = new EmbedBuilder();
-        eb.setTitle("Core | Info", null);
-        eb.setColor(Color.pink);
-        eb.setDescription("All Merdian Info");
+        eb.setTitle("Core | Help", null);
+        eb.setColor(Color.blue);
+        eb.setDescription("Commands");
         //eb.addField("Shard info: ",  getShardString(), false);
-        eb.addField("Bot: ", "Version: " + info.ver, false);
+        eb.addField("Core", "`info` - show bot info \n`ping` - check bot status \n`help` - bot help", false);
+        eb.addField("Fun", "`numflip` *[number]* - number flip! \n", false);
         return eb.build();
-
     }
 
     protected void execute(CommandEvent event) {
@@ -82,4 +76,5 @@ public class InfoCmd extends Command {
         }
 
     }
+
 }

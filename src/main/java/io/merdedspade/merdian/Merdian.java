@@ -5,14 +5,14 @@ import net.dv8tion.jda.client.entities.Group;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.LoggerFactory;
 import com.jagrosh.jdautilities.command.*;
-import com.jagrosh.jdautilities.commons.*;
-import com.jagrosh.jdautilities.menu.*;
+import io.merdedspade.merdian.command.*;
 import javax.security.auth.login.LoginException;
 
 import static io.merdedspade.merdian.Launch.bot;
@@ -29,10 +29,11 @@ public class Merdian extends ListenerAdapter{
     static ch.qos.logback.classic.Logger l =
             (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Merdian.class);
     static Config config = new Config();
+    static Const consta = new Const();
     //Using debug
 
 
-    public static void bot() /*throws Exception*/{
+    public void bot() /*throws Exception*/ {
         if(config.isDebug == true){
             l.setLevel(Level.TRACE);
         } else{
@@ -45,18 +46,30 @@ public class Merdian extends ListenerAdapter{
             // Set the bot's Owner ID±±
             builder.setOwnerId(config.owner);
             builder.setPrefix(config.prefix);
-            builder.setGame(Game.streaming("Merdian | indev", "https://twitch.tv/abroskin08"));
+            if (config.dev_mode) {
+                builder.setGame(Game.streaming("Dev mode", "https://twitch.tv/abroskin08"));
+            }
+            if (config.prod_mode) {
+                builder.setGame(Game.streaming(consta.ver + " | " + config.prefix + "help", "https://twitch.tv/abroskin08"));
+            } else {
+                builder.setGame(Game.playing("Loading..."));
+                builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+            }
             builder.addCommands(
                     new io.merdedspade.merdian.command.PingCmd(),
                     new io.merdedspade.merdian.command.ShutdownCmd(bot),
-                    new io.merdedspade.merdian.command.InfoCmd()
-            )
-            ; //builder.addCommands(new io.merdedspade.merdian.command.PingCmd(), new SecondCmd());
-
-
+                    new io.merdedspade.merdian.command.InfoCmd(),
+                    new io.merdedspade.merdian.command.HelpCmd(),
+                    new io.merdedspade.merdian.command.fun.CoinflipCmd()
+            );
+            HelpCmd Help = new HelpCmd();
+            builder.useHelpBuilder(true);
+            builder.setHelpWord("dphelp");
+            //builder.addCommands(new io.merdedspade.merdian.command.PingCmd(), new SecondCmd());
             CommandClient client = builder.build();
             l.info("Loading shards...");
             JDABuilder shardBuilder = new JDABuilder(AccountType.BOT).setToken(config.token).setGame(Game.listening("Loading..."));
+            shardBuilder.setStatus(OnlineStatus.IDLE);
           /*  JDA jda = new JDA(AccountType.BOT)
                     .setToken(config.token)           //Bot token.
                     .addEventListener(new Merdian())
@@ -70,23 +83,35 @@ public class Merdian extends ListenerAdapter{
             //builder.addEventListener(new Merdian());
             builder.build();*/
             shardBuilder.addEventListener(client);
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < config.shards; i++)
             {
-                l.info("Loading shard ID: " + i);
-                shardBuilder.useSharding(i, 2)
+                l.info("Loading shard: " + i);
+                shardBuilder.useSharding(i, config.shards)
                         .buildAsync();
                 l.info("Done: " + i);
             }
 
             l.info("Done loading shards!");
+            if (config.dev_mode) {
+                builder.setGame(Game.streaming("Dev mode", "https://twitch.tv/abroskin08"));
+            }
+            if (config.prod_mode) {
+                builder.setGame(Game.streaming(consta.ver + " | " + config.prefix + "help", "https://twitch.tv/abroskin08"));
+            } else {
+                builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+                builder.setGame(Game.watching("Loading error. Please, contact admin."));
+                l.error("Please, set correct mode.");
+                builder.setGame(Game.watching("Loading error. Please, contact admin."));
+                Thread.sleep(999999);
+                System.exit(1);
+            }
         } catch (LoginException e) {
             //If auth error.
             e.printStackTrace();
             l.error("Wrong token!");
+        } catch (InterruptedException e) {
+            l.error("Bot sleep.");
         }
-
-
-
 
 
     }
@@ -98,14 +123,13 @@ public class Merdian extends ListenerAdapter{
     }
     @Override
     public void onReady(ReadyEvent event){
-        //SoonTM
+        l.info("Bot ready!");
 
 
     }
 
 
-    @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void sendConsole(MessageReceivedEvent event) {
 
         JDA jda = event.getJDA();                       //JDA
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
@@ -155,4 +179,5 @@ public class Merdian extends ListenerAdapter{
 
 
     }
+
 }
