@@ -10,8 +10,12 @@ import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.LoggerFactory;
-
+import com.jagrosh.jdautilities.command.*;
+import com.jagrosh.jdautilities.commons.*;
+import com.jagrosh.jdautilities.menu.*;
 import javax.security.auth.login.LoginException;
+
+import static io.merdedspade.merdian.Launch.bot;
 
 
 /*
@@ -20,13 +24,8 @@ Bot core here. Plz read README.md
 
 
 
-
-
-
-
-
 public class Merdian extends ListenerAdapter{
-
+    public final com.jagrosh.jdautilities.command.Command.Category OWNER = new com.jagrosh.jdautilities.command.Command.Category("Owner");
     static ch.qos.logback.classic.Logger l =
             (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Merdian.class);
     static Config config = new Config();
@@ -41,8 +40,23 @@ public class Merdian extends ListenerAdapter{
         }
 
         try {
+            l.info("Building CommandClient..");
+            CommandClientBuilder builder = new CommandClientBuilder();
+            // Set the bot's Owner ID±±
+            builder.setOwnerId(config.owner);
+            builder.setPrefix(config.prefix);
+            builder.setGame(Game.streaming("Merdian | indev", "https://twitch.tv/abroskin08"));
+            builder.addCommands(
+                    new io.merdedspade.merdian.command.PingCmd(),
+                    new io.merdedspade.merdian.command.ShutdownCmd(bot),
+                    new io.merdedspade.merdian.command.InfoCmd()
+            )
+            ; //builder.addCommands(new io.merdedspade.merdian.command.PingCmd(), new SecondCmd());
+
+
+            CommandClient client = builder.build();
             l.info("Loading shards...");
-            JDABuilder shardBuilder = new JDABuilder(AccountType.BOT).setToken(config.token).setGame(Game.playing("Merdian | Indev"));
+            JDABuilder shardBuilder = new JDABuilder(AccountType.BOT).setToken(config.token).setGame(Game.listening("Loading..."));
           /*  JDA jda = new JDA(AccountType.BOT)
                     .setToken(config.token)           //Bot token.
                     .addEventListener(new Merdian())
@@ -55,7 +69,7 @@ public class Merdian extends ListenerAdapter{
             builder.setToken(config.token);
             //builder.addEventListener(new Merdian());
             builder.build();*/
-            shardBuilder.addEventListener(new Merdian());
+            shardBuilder.addEventListener(client);
             for (int i = 0; i < 2; i++)
             {
                 l.info("Loading shard ID: " + i);
@@ -76,9 +90,17 @@ public class Merdian extends ListenerAdapter{
 
 
     }
+
+    private JDA jda;
+
+    public void shutdown() {
+        jda.shutdown();
+    }
     @Override
     public void onReady(ReadyEvent event){
         //SoonTM
+
+
     }
 
 
@@ -132,12 +154,5 @@ public class Merdian extends ListenerAdapter{
         }
 
 
-        if (msg.equals(config.prefix + "ping")) {
-
-            channel.sendMessage("Pong! Bot working!").queue();
-        } else if (msg.equals(config.prefix + "shutdown") && author.equals(config.owner)) {
-            channel.sendMessage("Bye! ").queue();
-            System.exit(0);
-        } 
     }
 }

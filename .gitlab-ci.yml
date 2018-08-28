@@ -1,4 +1,4 @@
-image: alpine:latest
+image: fedora:latest
 
 variables:
   POSTGRES_USER: user
@@ -39,44 +39,41 @@ docker:
     - build
   only:
     - branches
+  allow_failure: true
 
 latest:
-  image: maven:latest
+  image: gradle:latest
   stage: build
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
-    - target
+    - build
 
 jdk10:
-  image: maven:3.5.4-jdk-10
+  image: gradle:jdk10
   stage: build
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
-    - target
-    
-jdk9:
-  image: maven:3.5.4-jdk-9
-  stage: build
-  script:
-    - 'mvn clean install -X'
-  artifacts:
-    paths:
-    - target
+    - build
+
+
 jdk8:
-  image: maven:3.5.4-jdk-8
+  image: gradle:jdk8
   stage: build
   script:
-    - 'mvn clean install -X'
+    - 'gradle clean shadowJar'
   artifacts:
     paths:
-    - target
+    - build
+
+
  
  
 test:
+  allow_failure: true
   services:
     - postgres:latest
   variables:
