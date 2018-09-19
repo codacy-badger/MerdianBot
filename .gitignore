@@ -3,7 +3,6 @@ google-java-format-1.6-all-deps.jar
 *.log
 *.ctxt
 .mtj.tmp/
-*.jar
 *.war
 *.nar
 *.ear
