@@ -12,6 +12,8 @@ google-java-format-1.6-all-deps.jar
 hs_err_pid*
 target/
 .gradle/
+.idea
+.idea/
 build/
 pom.xml.tag
 pom.xml.releaseBackup
