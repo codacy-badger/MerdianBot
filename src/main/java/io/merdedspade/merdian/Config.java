@@ -6,11 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Config {
+    public static boolean dev_mode;
+    public static boolean prod_mode;
+    public static String mode;
     public static String token;
     public static String owner;
     public static String prefix;
     public static String debug;
-    public static int ownerId;
+    public static String shards_string;
+    public static int shards;
     public static boolean isDebug;
     final static Logger logger = LoggerFactory.getLogger(Config.class);
     public static void il(String msg){
@@ -29,17 +33,26 @@ public class Config {
         try {
             fis = new FileInputStream("config.properties"); //src/main/resources/config.properties
             property.load(fis);
-
+            dev_mode = false;
+            prod_mode = false;
+            mode = property.getProperty("Mode");
+            if (mode.equals("dev")) {
+                dev_mode = true;
+            }
+            if (mode.equals("prod")) {
+                prod_mode = true;
+            }
             token = property.getProperty("Token");
             prefix = property.getProperty("Prefix");
             debug = property.getProperty("Debug");
             owner = property.getProperty("BotOwner");
-
+            shards_string = property.getProperty("Shards");
+            shards = Integer.parseInt(shards_string);
             il("Prefix: " + prefix);
             boolConverter();
             il("Debug: " + isDebug);
         } catch (IOException e) {
-            el("Config file not found! Stopping...");
+            el("Config file not found! Please download full archive with config! Stopping...");
             System.exit(1);
         }
 

@@ -29,6 +29,8 @@ public class Launch {
             wl("THIS VERSION IN " + dev.dev_status.toUpperCase() + ". CAN BE UNSTABLE.");
         }
         Config.start();
+
+
         il("Now starting bot!");
         bot.bot();
 

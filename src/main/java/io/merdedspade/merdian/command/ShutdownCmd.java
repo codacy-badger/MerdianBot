@@ -15,7 +15,7 @@ public class ShutdownCmd extends Command {
             (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ShutdownCmd.class);
     private final Merdian bot;
 
-    public MessageEmbed ebs() {
+    protected MessageEmbed ebs() {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle(":hammer: Core | Shutting down...", null);
         eb.setColor(Color.orange);
@@ -35,6 +35,11 @@ public class ShutdownCmd extends Command {
     @Override
     protected void execute(CommandEvent event) {
         event.reply(ebs());
+        bot.shutdown();
+        l.info("Bot stopped by owner... Closing...");
+        l.info("Bye!");
+        System.exit(0);
+        l.info("End.");
         JDA jda = event.getJDA();                       //JDA
         long responseNumber = event.getResponseNumber();//The amount of discord events that JDA has received since the last reconnect.
 
@@ -73,10 +78,6 @@ public class ShutdownCmd extends Command {
 
             l.info("New message in group \n" + "\n Group name: " + groupName + "\n Author ID: " + author.getId() + "\n Message: " + msg);
         }
-        bot.shutdown();
-        l.info("Bot stopped... Closing...");
-        l.info("Bye!");
-        System.exit(0);
-        l.info("End.");
+
     }
 }

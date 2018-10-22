@@ -10,11 +10,10 @@ import java.awt.Color;
 
 
 public class PingCmd extends Command {
-    public String PingHelp = "Loading...";
     static ch.qos.logback.classic.Logger l =
             (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(PingCmd.class);
 
-    public MessageEmbed ebs() {
+    protected MessageEmbed ebs() {
         EmbedBuilder eb = new EmbedBuilder();
         eb.setTitle("Core | Ping-Pong!", null);
         eb.setColor(Color.green);
